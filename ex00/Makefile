@@ -4,27 +4,23 @@ CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98
 RM = rm -rf
 
-SCRS = megaphone.cpp
+SRCS = megaphone.cpp
 OBJS = $(SRCS:.cpp=.o)
 
-all = $(NAME)
+all: $(NAME)
 
-$(NAME) = $(OBJS)
-    $(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
-    @echo "COMPILING DONE!!"
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
+	@echo "COMPILING DONE!!"
 
 clean:
-    $(RM) $(OBJS)
-    @ "Cleanup Files Objs"
+	$(RM) $(OBJS)
+	@echo "Cleanup Files Objs"
 
 fclean: clean
-    $(RM) $(NAME)
-    @ "CLEANUP DONE!!"
+	$(RM) $(NAME)
+	@echo "CLEANUP DONE!!"
 
-re: fclean $(NAME)
-    @"Cleaning and Recompiling .."
+re: fclean all
 
-
-
-.PHONY: all clean fclean rePHONY: all clean fclean re
-
+.PHONY: all clean fclean re
