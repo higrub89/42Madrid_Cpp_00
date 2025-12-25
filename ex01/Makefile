@@ -1,23 +1,42 @@
-NAME		= phonebook
+# --- Configuración del Chasis ---
+NAME        = telemetria_final
+LIB_NAME    = libmotor.a
 
-SRCS		= main.cpp PhoneBook.cpp Contact.cpp
+# Compilador y Flags de alto rendimiento
+CXX         = g++
+CXXFLAGS    = -Wall -Wextra -Werror -std=c++98 -O3 -I.
+AR          = ar rvs
+RM          = rm -f
 
-OBJS		= $(SRCS:.cpp=.o)
+# --- Componentes (Archivos) ---
+SRCS        = main.cpp
+LIB_SRCS    = operaciones.cpp
+OBJS        = $(SRCS:.cpp=.o)
+LIB_OBJS    = $(LIB_SRCS:.cpp=.o)
 
-CXX			= c++
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
+# --- Reglas de Construcción ---
 
-all:		$(NAME)
+# 1. Objetivo principal: El binario final
+all: $(NAME)
 
-$(NAME):	$(OBJS)
-			$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
+$(NAME): $(OBJS) $(LIB_NAME)
+	$(CXX) $(CXXFLAGS) $(OBJS) -L. -lmotor -o $(NAME)
 
+# 2. Creación de la Biblioteca Estática (Objetoteca)
+$(LIB_NAME): $(LIB_OBJS)
+	$(AR) $(LIB_NAME) $(LIB_OBJS)
+
+# 3. Regla implícita para compilar objetos (.cpp -> .o)
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# --- Mantenimiento ---
 clean:
-			rm -f $(OBJS)
+	$(RM) $(OBJS) $(LIB_OBJS)
 
-fclean:		clean
-			rm -f $(NAME)
+fclean: clean
+	$(RM) $(NAME) $(LIB_NAME)
 
-re:			fclean all
+re: fclean all
 
-.PHONY:		all clean fclean re
+.PHONY: all clean fclean re
