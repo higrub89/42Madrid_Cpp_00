@@ -27,7 +27,7 @@ class Contact
         std::string getNickName() const;
 
         // Métodos de visualización que no alteran el estado.
-        void    displayFull();
+        void    displayFull() const;
     
 };
 
