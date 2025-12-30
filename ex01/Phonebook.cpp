@@ -32,7 +32,7 @@ void PhoneBook::addContacts() {
     if (_count < 8)
         _count++;
 
-        std::cout << "[SUCCESS] Contact stored succesfully.\n" << std::endl;
+    std::cout << "[SUCCESS] Contact stored succesfully.\n" << std::endl;
 }
 
 std::string PhoneBook::_truncate(std::string str) const 
@@ -66,8 +66,7 @@ void PhoneBook::searchContacts() const {
 
     this->_displaySpecificContact();
 }
-const
-void PhoneBook::_displaySpecificContact()  {
+void PhoneBook::_displaySpecificContact() const {
     std::string input;
     int         index;
 
