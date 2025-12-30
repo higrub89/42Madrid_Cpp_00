@@ -2,6 +2,7 @@
 # define PHONEBOOK_HPP
 
 # include "Contact.hpp"
+# include <iomanip>
 
 class PhoneBook 
 {
@@ -11,6 +12,7 @@ class PhoneBook
         int _count;
 
         std::string _truncate(std::string str) const;
+        void PhoneBook::_displaySpecificContact() const;
 
     public:
         PhoneBook();

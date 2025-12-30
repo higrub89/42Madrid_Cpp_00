@@ -34,3 +34,56 @@ void PhoneBook::addContacts() {
 
         std::cout << "[SUCCESS] Contact stored succesfully.\n" << std::endl;
 }
+
+std::string PhoneBook::_truncate(std::string str) const 
+{
+    if (str.length() > 10)
+    {
+        return (str.substr(0, 9) + ".");
+    }
+    return (str);
+}
+
+void PhoneBook::searchContacts() const {
+    if (_count == 0) {
+        std::cout << "[INFO] PhoneBook is empty. No data to display." << std::endl;
+        return;
+    }
+
+    // Cabecera de la tabla (ajuste de precisión)
+    std::cout << "|" << std::setw(10) << "Index";
+    std::cout << "|" << std::setw(10) << "First Name";
+    std::cout << "|" << std::setw(10) << "Last Name";
+    std::cout << "|" << std::setw(10) << "Nickname" << "|" << std::endl;
+
+    // Listado de contactos almacenados
+    for (int i = 0; i < _count; i++) {
+        std::cout << "|" << std::setw(10) << (i + 1); // Mostramos índice 1-8 para el usuario
+        std::cout << "|" << std::setw(10) << _truncate(_contacts[i].getFirstName());
+        std::cout << "|" << std::setw(10) << _truncate(_contacts[i].getLastName());
+        std::cout << "|" << std::setw(10) << _truncate(_contacts[i].getNickName()) << "|" << std::endl;
+    }
+
+    this->_displaySpecificContact();
+}
+const
+void PhoneBook::_displaySpecificContact()  {
+    std::string input;
+    int         index;
+
+    std::cout << "\nEnter index to display details: ";
+    if (!std::getline(std::cin, input) || input.empty())
+        return;
+
+    // Validación manual (C++98 no tiene std::stoi de forma segura)
+    if (input.length() == 1 && input[0] >= '1' && input[0] <= '8') {
+        index = input[0] - '0'; // Convertimos char a int
+        if (index <= _count) {
+            _contacts[index - 1].displayFull(); // El array es 0-indexado
+        } else {
+            std::cout << "[ERROR] Index out of range. No contact there." << std::endl;
+        }
+    } else {
+        std::cout << "[ERROR] Invalid index format." << std::endl;
+    }
+}
