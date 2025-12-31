@@ -1,20 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Contact.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhiguita <rhiguita@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/31 14:42:11 by rhiguita          #+#    #+#             */
+/*   Updated: 2025/12/31 14:42:14 by rhiguita         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Contact.hpp"
 
-/**
- * Constructor: Inicializa la pieza en un estado neutro.
- */
 Contact::Contact() {}
 
-/**
- * Destructor: Limpieza de la pieza al ser desechada.
- */
 Contact::~Contact() {}
 
-/**
- * @brief Inyección de datos mediante referencia constante.
- * Usamos const std::string& para evitar duplicar la memoria en el stack,
- * lo cual mejora el rendimiento del sistema.
- */
 void Contact::setInfo(const std::string& fName, const std::string& lName, 
                       const std::string& nName, const std::string& pNum, 
                       const std::string& dSecret) {
@@ -25,16 +26,10 @@ void Contact::setInfo(const std::string& fName, const std::string& lName,
     this->_darkestSecret = dSecret;
 }
 
-// Getters: Acceso de solo lectura blindado con 'const'
 std::string Contact::getFirstName() const { return (this->_firstName); }
 std::string Contact::getLastName() const { return (this->_lastName); }
 std::string Contact::getNickName() const { return (this->_nickName); }
 
-/**
- * @brief Visualización de telemetría completa.
- * Este método solo se llama cuando el usuario selecciona un índice válido.
- * Al ser 'const', garantizamos que no se altera el estado del contacto.
- */
 void Contact::displayFull() const {
     std::cout << "\n--- CONTACT DETAILS ---" << std::endl;
     std::cout << "First Name:     " << this->_firstName << std::endl;

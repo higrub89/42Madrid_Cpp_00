@@ -1,0 +1,10 @@
+# Object files
+*.o
+
+# executable
+phonebook
+
+# editor / OS junk
+*~
+*.swp
+.DS_Store

@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Phonebook.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhiguita <rhiguita@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/31 14:42:23 by rhiguita          #+#    #+#             */
+/*   Updated: 2025/12/31 14:42:28 by rhiguita         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Phonebook.hpp"
 
-//constructor: Sistemas a cero
 PhoneBook::PhoneBook() : _index(0), _count(0) {
     std::cout <<  "[SYSTEM] PhoneBook initialized." << std::endl;
 }
@@ -50,13 +61,11 @@ void PhoneBook::searchContacts() const {
         return;
     }
 
-    // Cabecera de la tabla (ajuste de precisión)
     std::cout << "|" << std::setw(10) << "Index";
     std::cout << "|" << std::setw(10) << "First Name";
     std::cout << "|" << std::setw(10) << "Last Name";
     std::cout << "|" << std::setw(10) << "Nickname" << "|" << std::endl;
 
-    // Listado de contactos almacenados
     for (int i = 0; i < _count; i++) {
         std::cout << "|" << std::setw(10) << (i + 1); // Mostramos índice 1-8 para el usuario
         std::cout << "|" << std::setw(10) << _truncate(_contacts[i].getFirstName());
@@ -66,6 +75,7 @@ void PhoneBook::searchContacts() const {
 
     this->_displaySpecificContact();
 }
+
 void PhoneBook::_displaySpecificContact() const {
     std::string input;
     int         index;
@@ -74,7 +84,6 @@ void PhoneBook::_displaySpecificContact() const {
     if (!std::getline(std::cin, input) || input.empty())
         return;
 
-    // Validación manual (C++98 no tiene std::stoi de forma segura)
     if (input.length() == 1 && input[0] >= '1' && input[0] <= '8') {
         index = input[0] - '0'; // Convertimos char a int
         if (index <= _count) {
